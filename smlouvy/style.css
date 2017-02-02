@@ -1,0 +1,135 @@
+
+/*
+*	Name: 		style.css
+*	Author: 	Krystofee
+*	Created: 	25.1.2017
+*	Desc: 		
+*/
+
+html, body {
+	padding: 0;
+	margin: 0;
+
+
+	background-image: url('img/background.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+
+
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 400;
+}
+
+/* Classes */
+/* - Fonts */
+
+/* -- Dosis */
+.font-family-dosis {
+	font-family: 'Dosis';
+}
+/* -/ Dosis */
+
+/* -- OpenSans */
+.font-family-opensans {
+	font-family: 'Open Sans', sans-serif;
+}
+/* -/ OpenSans */
+
+/* -- Font weight */
+.font-weight-200 {
+	font-weight: 200;
+}
+.font-weight-300 {
+	font-weight: 300;
+}
+.font-weight-400 {
+	font-weight: 400;
+}
+.font-weight-600 {
+	font-weight: 600;
+}
+.font-weight-700 {
+	font-weight: 700;
+}
+.font-weight-800 {
+	font-weight: 800;
+}
+/* -/ Font weight */
+
+/* -- Font size */
+.font-size-10 {
+	font-size: 10px;
+}
+.font-size-15 {
+	font-size: 15px;
+}
+.font-size-20 {
+	font-size: 20px;
+}
+.font-size-25 {
+	font-size: 25px;
+}
+.font-size-30 {
+	font-size: 30px;
+}
+
+/* -/ Font size */
+
+.unstyled li {
+	list-style: none;
+}
+
+/* -- Align */
+.display-inline-block {
+	display: inline-block !important;
+}
+
+.text-align-center {
+	text-align: center !important;
+}
+/* -/ Align */
+
+.space tr td {
+	padding: 10px;
+}
+
+.spacer {
+	padding: 7.5px;
+}
+
+.padding-20 {
+	padding: 20px;
+}
+
+.float-none {
+	float: none;
+}
+
+.background-white-transparent {
+	background-color: rgba(255,255,255,0.35);
+}
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+    border: none;
+}
+
+.color-green {
+	color: rgba(0, 130, 0, 1);
+}
+
+.color-red {
+	color: rgba(160, 0, 0, 1);
+}
+
+.borderless {
+	border: none;
+}
+
+.list-group-submenu {
+  margin-left:20px;
+}

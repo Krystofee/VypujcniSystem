@@ -1,0 +1,18 @@
+DNA, mRNA,
+A -> U -> 
+T -> A -> 
+G -> C -> 
+C -> G -> 
+
+A <- -> T
+C <- -> G
+
+5' -> 3'
+3' -> 5'
+
+5' CATTGAGT 3' - DNA paměťové
+3' GTAACTCA 5' - DNA pracovní
+5' CAUUGAGU 3' - mRNA
+
+UAA, UAG, UGA - Stop
+AUG - met - START
