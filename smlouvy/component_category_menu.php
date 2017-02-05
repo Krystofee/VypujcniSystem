@@ -31,5 +31,9 @@ function getChild($id, $result, $count) {
 	}
 }
 
+echo '<div class="panel-heading list-group panel" id="menu"><h3>Seznam Kategorií :</h3></div><div class="panel-content">';
+
 getChild(0, $result, 0);
+
+echo '</div>';
 
