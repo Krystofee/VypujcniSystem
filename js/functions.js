@@ -6,7 +6,6 @@
 *	Desc: 		file containing all javascript background functions and event listeners
 *
 *	function get(elementID) : element;
-*	function write(string) : boolean;
 *	function alphanumeric(str) : boolean;
 *	function allLetter(str) : boolean;
 *	function destroySession() : AJAX;
@@ -15,6 +14,7 @@
 *	function addTag(tagname) : AJAX;
 *	function addItem(itemname, evc, desc, elimage, elprew, catid) : AJAX;	
 *	function listItems(catname) : json_encoded;
+*	function viewImage(element);
 *
 *	+ document onload events
 *	login
@@ -35,13 +35,6 @@
 */
 function get(elementID) {
 	return document.getElementById(elementID);
-}
-
-/*
-*	write(string) to the document
-*/
-function write(string) {
-	return document.write(string);
 }
 
 /*
@@ -292,17 +285,70 @@ function listItems(catname) {
 		data: {myData:postData},
 		success: function(out) {
 			console.log('listItems() ajax request sent successfuly');
-			console.log(out);
-			$('#items-panel')
-				.html('')
-				.append('out');
 
+			$('#items-panel-catname').html(catname);
+
+			try {
+				var items = JSON.parse(out);
+			} catch(e) {
+				console.log(out);
+			}
+
+			console.log(items);
+
+			if (items == undefined) {
+				$('#items-panel-content').html('');
+				return;
+			}
+
+			var prepared = '';
+
+			for(var i = 0; i < items.length; i ++) {
+				if(i % 3 == 0) {
+					prepared += '<div class="row">';
+				}
+
+				prepared += '<div class="col-sm-4 item panel">';
+				prepared += '<div class="panel-heading">';
+				prepared += '<h4>'; 
+				prepared += items[i][1];
+				prepared += '<br><small>evč:'; 
+				prepared += items[i][3];
+				prepared += '</small></h4>!';
+				prepared += '</div>';
+				prepared += '<div class="panel-content">';
+				prepared += '<p class="description"> ';
+				prepared += items[i][2];
+				prepared += '</p>';
+				prepared += '<img src="uploads/items/';
+				prepared += items[i][1]+'-'+items[i][3]+'/';
+				prepared += 'image.jpg" class="preview" onclick="viewImage($(this));">';
+				prepared += '</div>';
+				prepared += '<div class="panel-footer">';
+				prepared += '<button class="btn btn-default btn-sm"><b>+</b>&nbsp; Přidat do košíku</button>';
+				prepared += '</div>';
+
+				if(i % 3 == 0) {
+					prepared += '</div>';
+				}
+			}
+
+			$('#items-panel-content').html(prepared);
 		},
 		error: function(xhr, ajaxOptions, thrownError){
 			console.log(xhr.status);
 		},
 	});
 }
+
+/*
+*
+*/
+function viewImage(element) {
+	$('body').append('<div id="full-image" class="fullscreen-fixed" onclick="$(this).fadeOut(function() {$(this).remove()})" hidden><img class="fullscreen-img" src="'+($(element).attr('src')).replace('preview', 'image')+'"></div>');
+	$('#full-image').fadeIn();
+}
+
 
 // --------------- On Load -------------------
 

@@ -51,6 +51,7 @@ class Database {
 		try {
 			self::$link = new PDO('mysql:host='.self::$database['host'].';dbname='.self::$database['name'], self::$database['user'], self::$database['password']);
 			self::$link -> exec("set names utf8");
+			self::$link -> exec("set character set utf8");
 			self::$link -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch(PDOException $e) {
 			echo "Connection to database failed: " . $e->getMessage();

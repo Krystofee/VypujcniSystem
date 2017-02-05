@@ -7,12 +7,12 @@
 */
 ?>
 <div class="form-group panel">
-	<div class="panel-heading" id="items-panel-catname">
+	<div class="panel-heading">
 		<h2>
-			
+			Zvolená kategorie : <span id="items-panel-catname"></span>
 		</h2>
 	</div>
-	<div class="panel-contentc col-md-12" id="items-panel-content">
-		
+	<div class="panel-content col-md-12 container-fluid" id="items-panel-content">
+
 	</div>
 </div>

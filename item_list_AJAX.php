@@ -28,7 +28,7 @@ if(isset($data->catname)) {
 	$sql = 'SELECT id, name, description, evc, tags_id, ordered FROM items WHERE category_id LIKE "' . $catid[0][0] . '"';
 	$result = Database::select($sql);
 
-	if(sizeof($catname) < 1) {
+	if(sizeof($result) < 1) {
 		die('Category '.$catname.' is empty ...');
 	}
 

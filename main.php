@@ -76,31 +76,26 @@ require_once 'header.php'
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-4">
-				<div class="list-group panel" id="menu">
-					<div class="panel-heading">
-						<h3>Seznam Kategorií :</h3>
-					</div>	
-					<div class="panel-content">
-						<?php
-						require 'component_category_menu.php';
-						?>
-					</div>
-				</div>
+			<div class="col-sm-4 ">
+				
+				<?php
+				require 'component_category_menu.php';
+				?>
 			</div>
 
 
-			<div class="col-md-8 panel" id="content">
+			<div class="col-sm-8 panel" id="content">
 				<?php
 				/*
 				* 	Used for testing components
 				*
 				require 'component_category_add.php';
-				require 'component_tag_add.php'
+				require 'component_tag_add.php';
 				require 'component_item_add.php';
 				*/
 				
-				require 'component_item_list.php'
+				require 'component_item_list.php';
+				require 'component_item_add.php';
 
 				?>
 			</div>
