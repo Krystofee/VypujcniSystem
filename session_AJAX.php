@@ -6,7 +6,7 @@
 *	Desc: 		handling aplication session from AJAX's requests and session as whole
 */
 
-// starts sessionv
+// starts session
 require 'session.php';
 
 // executes only if it is awoken by AJAX's request with myData in POST method

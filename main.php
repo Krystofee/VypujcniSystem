@@ -22,84 +22,92 @@ require_once 'header.php'
 
 <?php else: ?>
 
-	<nav class="navbar navbar-default navbar-static-top" id="slide-nav">
+	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-
 			<div class="navbar-header">
-				<a href="" class="navbar-brand">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">
 					<?php 
 
-					require_once 'database.php';
+					/*
+					*	Get project name from database
+					*/
+					
+					require_once 'projectinfo.php';
 
-					Database::connect();
-
-					$sql = 'SELECT value FROM metadata WHERE name LIKE "project_name"';
-					$result = Database::select($sql);
-
-					echo $result[0][0];
+					echo ProjectInfo::getInfo('project_name');
 
 					?>
 				</a>
 			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="#">---</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="navbar-text">
+						Přihlášen jako:
+						<?php
+						if (isset($_SESSION['user']['username'])) {
+							echo $_SESSION['user']['username'];
+						}
+						
+						?>
+					</li>
+					<li class="dropdown" id="cart">
+						<?php 
+						
+						require 'component_item_cart_js.php';
 
-			<!-- LEFT -->
-			<ul class="nav navbar-nav navbar-left">
-				<li>
-					<a href="#">---</a>
-				</li>
-			</ul>
-
-			<!-- RIGHT -->
-			<p class="navbar-text navbar-right">&nbsp;</p>
-			<ul class="nav navbar-nav navbar-right">
-				<li class="nav navbar-text">
-					Přihlášen jako:
-					<?php
-					if (isset($_SESSION['user']['username'])) {
-						echo $_SESSION['user']['username'];
-					}
-					?>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Můj účet <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="#">Profil</a></li>
-						<li><a href="#">Správce peněženek</a></li>
-						<li><a href="#">Další akce</a></li>
-						<li role="separator" class="divider"></li>
-						<li><a href="#">Odhlásit se</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
+						?>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Můj účet <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Profil</a></li>
+							<li><a href="#">Správce peněženek</a></li>
+							<li><a href="#">Další akce</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#" onclick="logout();">Odhlásit se</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!--/.nav-collapse -->
+		</div><!--/.container-fluid -->
 	</nav>
 
 	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-4 ">
-				
-				<?php
-				require 'component_category_menu.php';
-				?>
+		<div class="col-md-4">
+			<div class="list-group panel" id="menu">
+				<div class="panel-heading">
+					<h3>Seznam Kategorií :</h3>
+				</div>	
+				<div class="panel-content">
+					<?php
+					require 'component_category_menu.php';
+					?>
+				</div>
 			</div>
+		</div>
 
 
-			<div class="col-sm-8 panel" id="content">
-				<?php
-				/*
-				* 	Used for testing components
-				*
-				require 'component_category_add.php';
-				require 'component_tag_add.php';
-				require 'component_item_add.php';
-				*/
-				
-				require 'component_item_list.php';
-				require 'component_item_add.php';
+		<div class="col-md-8 container-fluid " id="content">
+			<script type="text/javascript">
 
-				?>
-			</div>
-		</div>	
+				//component_category_add($('#content'));
+				//component_tag_add($('#content'));
+				//component_item_add($('#content'));
+				component_item_list($('#content'));
+
+			</script>
+		</div>
 	</div>
 
 	<?php

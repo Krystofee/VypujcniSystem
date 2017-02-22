@@ -3,7 +3,12 @@
 *	Name: 		category_AJAX.php
 *	Author: 	Krystofee
 *	Created: 	25.1.2017
-*	Desc: 		
+*	Desc: 		an ajax file called by js function addCategory() which adds a new category into the database
+*/
+/*
+*	To do list:
+*				- make validation - if category already exists, do not create
+*								  - chceck parent if cat already exists
 */
 
 require 'session.php';

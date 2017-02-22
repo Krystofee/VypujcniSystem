@@ -12,16 +12,13 @@
 		<small>
 			<?php 
 
-			require_once 'database.php';
+			/*
+			*	Get project name from database
+			*/
 
-			Database::connect();
+			require_once 'projectinfo.php';
 
-			$sql = 'SELECT value FROM metadata WHERE name LIKE "author"';
-			$result = Database::select($sql);
-
-			echo $result[0][0];
-
-			Database::close();
+			echo ProjectInfo::getInfo('author');
 
 			?>
 			&copy; 
@@ -32,16 +29,14 @@
 			?>
 			<?php 
 
-			require_once 'database.php';
+			/*
+			*	Get project name from database
+			*/
 
-			Database::connect();
+			require_once 'projectinfo.php';
 
-			$sql = 'SELECT value FROM metadata WHERE name LIKE "version"';
-			$result = Database::select($sql);
-
-			echo "verze " . $result[0][0];
-
-			Database::close();
+			echo 'verze ';
+			echo ProjectInfo::getInfo('version');
 
 			?>
 		</small>

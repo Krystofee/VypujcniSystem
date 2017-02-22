@@ -45,187 +45,173 @@ require_once 'header.php'
 				<div class="panel-heading"><h1>
 					<?php 
 
-					require_once 'database.php';
+					/*
+					*	Get project info from database
+					*/
+					
+					require_once 'projectinfo.php';
 
-					Database::connect();
-
-					$sql = 'SELECT value FROM metadata WHERE name LIKE "project_name"';
-					$result = Database::select($sql);
-
-					echo $result[0][0];
-
-					Database::close();
+					echo ProjectInfo::getInfo('project_name');
 
 					?>&nbsp;
 					<small>
 						<?php 
 
-						require_once 'database.php';
+					/*
+					*	Get project info from database
+					*/
+					
+					require_once 'projectinfo.php';
 
-						Database::connect();
+					echo ProjectInfo::getInfo('motto');
 
-						$sql = 'SELECT value FROM metadata WHERE name LIKE "motto"';
-						$result = Database::select($sql);
+					?>
+				</small></h1></div>
+				<div class="panel-content"><h2><small>
+					<?php 
 
-						echo $result[0][0];
+					/*
+					*	Get project info from database
+					*/
+					
+					require_once 'projectinfo.php';
 
-						Database::close();
+					echo ProjectInfo::getInfo('author');
 
-						?>
-					</small></h1></div>
-					<div class="panel-content"><h2><small>
-						<?php 
+					?>
+					&copy; 
+					<?php 
 
-						require_once 'database.php';
+					echo date("Y")
 
-						Database::connect();
+					?>
+					<?php 
 
-						$sql = 'SELECT value FROM metadata WHERE name LIKE "author"';
-						$result = Database::select($sql);
+					/*
+					*	Get project info from database
+					*/
+					
+					require_once 'projectinfo.php';
+					
+					echo 'verze ';
+					echo ProjectInfo::getInfo('version');
 
-						echo $result[0][0];
-
-						Database::close();
-
-						?>
-						&copy; 
-						<?php 
-
-						echo date("Y")
-
-						?>
-						<?php 
-
-						require_once 'database.php';
-
-						Database::connect();
-
-						$sql = 'SELECT value FROM metadata WHERE name LIKE "version"';
-						$result = Database::select($sql);
-
-						echo "verze " . $result[0][0];
-
-						Database::close();
-
-						?>
-					</small></h2></div>
-				</div>
+					?>
+				</small></h2></div>
 			</div>
 		</div>
-
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading text-center font-size-20">
-						Informační tabule
-					</div>
-					<div class="panel-content" id="register-form-content">
-						<div class="container-fluid">
-							<div class="row">
-								<div class="col-md-12">
-									<br>
-									<?php 
-
-									require_once 'database.php';
-
-									Database::connect();
-
-									$sql = 'SELECT value FROM metadata WHERE name LIKE "description"';
-									$result = Database::select($sql);
-
-									echo $result[0][0];
-
-									Database::close();
-
-									?>
-								</div>
-							</div>
-							<hr>
-							<div class="row">
-								<div class="list-group">
-									<div class="list-group-item borderless">
-										- Dne 15.2 proběhne údržba serveru :)
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="panel panel-default">
-					<div class="panel-heading text-center font-size-20">
-						Registruj se
-					</div>
-					<form id="register-form" method="POST" autocomplete="on">
-						<div class="panel-content" id="register-form-content">
-							<div class="form-group text-center">
-								<table class="display-inline-block space">
-									<tr><td><input id="register-username" class="form-control" type="text" name="username" placeholder="Username"></td></tr>
-									<tr><td><input id="register-email" class="form-control" type="email" name="email" placeholder="Email"></td></tr>
-									<tr><td><input id="register-password" class="form-control" type="password" name="password" placeholder="Password"></td></tr>
-									<tr><td><input id="register-password2" class="form-control" type="password" name="password2" placeholder="Password Again"></td></tr>
-									<tr><td>
-										<div class="row">
-											<div class="col-md-4">
-												<select id="day" name="den" id="register-day" class="form-control">
-													<option disabled selected value="">Den</option>
-													<?php 
-
-													$min = 1;
-													$max = 31;
-
-													for($i = $min; $i <= $max; $i++) {
-														echo "<option value=".$i.">".$i."</option>";
-													}
-
-													?>
-												</select>
-											</div>
-											<div class="col-md-4">
-												<select id="month" name="mesic" id="register-month" class="form-control">
-													<option disabled selected value="">Měsíc</option>
-													<?php 
-
-													$min = 1;
-													$max = 12;
-
-													for($i = $min; $i <= $max; $i++) {
-														echo "<option value=".$i.">".$i."</option>";
-													}
-
-													?>
-												</select>
-											</div>
-											<div class="col-md-4">
-												<select id="year" name="rok" id="register-year" class="form-control">
-													<option disabled selected value="">Rok</option>
-													<?php 
-
-													$min = date("Y")-115;
-													$max = date("Y");
-
-													for($i = $max; $i >= $min; $i --) {
-														echo "<option value=".$i.">".$i."</option>";
-													}
-
-													?>
-												</select>
-											</div>
-										</div>
-									</td></tr>
-									<tr><td><input class="form-control btn btn-success" id="submit-register" value="Odeslat údaje"></td></tr>
-								</table>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-
 	</div>
 
-	<?php
-	require_once 'footer.php';
-	?>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center font-size-20">
+					Informační tabule
+				</div>
+				<div class="panel-content" id="register-form-content">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-md-12">
+								<br>
+								<?php 
+
+								/*
+								*	Get project name from database
+								*/
+								
+								require_once 'projectinfo.php';
+
+								echo ProjectInfo::getInfo('description');
+
+								?>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="list-group">
+								<div class="list-group-item borderless">
+									- Dne 15.2 proběhne údržba serveru :)
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading text-center font-size-20">
+					Registruj se
+				</div>
+				<form id="register-form" method="POST" autocomplete="on">
+					<div class="panel-content" id="register-form-content">
+						<div class="form-group text-center">
+							<table class="display-inline-block space">
+								<tr><td><input id="register-username" class="form-control" type="text" name="username" placeholder="Username"></td></tr>
+								<tr><td><input id="register-email" class="form-control" type="email" name="email" placeholder="Email"></td></tr>
+								<tr><td><input id="register-password" class="form-control" type="password" name="password" placeholder="Password"></td></tr>
+								<tr><td><input id="register-password2" class="form-control" type="password" name="password2" placeholder="Password Again"></td></tr>
+								<tr><td>
+									<div class="row">
+										<div class="col-md-4">
+											<select id="day" name="den" id="register-day" class="form-control">
+												<option disabled selected value="">Den</option>
+												<?php 
+
+												$min = 1;
+												$max = 31;
+
+												for($i = $min; $i <= $max; $i++) {
+													echo "<option value=".$i.">".$i."</option>";
+												}
+
+												?>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<select id="month" name="mesic" id="register-month" class="form-control">
+												<option disabled selected value="">Měsíc</option>
+												<?php 
+
+												$min = 1;
+												$max = 12;
+
+												for($i = $min; $i <= $max; $i++) {
+													echo "<option value=".$i.">".$i."</option>";
+												}
+
+												?>
+											</select>
+										</div>
+										<div class="col-md-4">
+											<select id="year" name="rok" id="register-year" class="form-control">
+												<option disabled selected value="">Rok</option>
+												<?php 
+
+												$min = date("Y")-115;
+												$max = date("Y");
+
+												for($i = $max; $i >= $min; $i --) {
+													echo "<option value=".$i.">".$i."</option>";
+												}
+
+												?>
+											</select>
+										</div>
+									</div>
+								</td></tr>
+								<tr><td><input class="form-control btn btn-success" id="submit-register" value="Odeslat údaje"></td></tr>
+							</table>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<?php
+require_once 'footer.php';
+?>

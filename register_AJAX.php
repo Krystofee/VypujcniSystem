@@ -3,7 +3,7 @@
 *	Name: 		register.php
 *	Author: 	Krystofee
 *	Created: 	25.1.2017
-*	Desc: 		script used to accept AJAX request and handle lregister into database
+*	Desc: 		script used to accept AJAX request and handle register into database
 */
 
 require 'session.php';

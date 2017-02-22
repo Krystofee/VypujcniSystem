@@ -115,7 +115,7 @@ html, body {
 .table-borderless thead tr td,
 .table-borderless tfoot tr th,
 .table-borderless tfoot tr td {
-	border: none;
+    border: none;
 }
 
 .color-green {
@@ -131,80 +131,5 @@ html, body {
 }
 
 .list-group-submenu {
-	margin-left:20px;
-}
-
-.item {
-	border-radius: 0;
-	border-right: 1px solid rgba(50, 50, 250, 0.2) !important;
-	border-top: 1px solid rgba(50, 50, 250, 0.2) !important;
-
-	padding: 10px !important;
-	padding-bottom: 0 !important;
-	margin-bottom: 0 !important;
-
-	background: -moz-linear-gradient(top, rgba(196,211,255,0.55) 0%, rgba(196,211,255,0.53) 1%, rgba(212,223,255,0) 28%, rgba(255,255,255,0) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(196,211,255,0.55) 0%,rgba(196,211,255,0.53) 1%,rgba(212,223,255,0) 28%,rgba(255,255,255,0) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba(196,211,255,0.55) 0%,rgba(196,211,255,0.53) 1%,rgba(212,223,255,0) 28%,rgba(255,255,255,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8cc4d3ff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
-}
-
-.item .panel {
-	background-color: rgba(0, 0, 0, 0) !important;
-	position: relative;
-}
-
-.item .panel-heading h4 {
-	color: rgb(90, 90, 190);
-}
-
-.item .panel-heading small {
-	color: rgb(150, 150, 250);
-}
-
-.item p.description {
-	font-size: .9em;
-	padding: 0 15px;
-}
-
-.item img.preview {
-	width: 80%;
-	margin-left: 10%;
-	padding: 10px;
-}
-
-.item .panel-footer {
-	margin-top: 15px;
-	margin-left: -10px !important; 
-	margin-right: -10px !important;
-	height: 100%;
-}
-
-.row {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display:         flex;
-  flex-wrap: wrap;
-}
-.row > [class*='col-'] {
-  display: flex;
-  flex-direction: column;
-}
-
-.fullscreen-fixed {
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.75);
-}
-
-.fullscreen-img {
-	position: fixed;
-	left: 25%;
-	top: 10%;
-	width: 50%;
-	height: auto;
+  margin-left:20px;
 }

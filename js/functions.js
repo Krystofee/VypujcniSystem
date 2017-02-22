@@ -6,15 +6,19 @@
 *	Desc: 		file containing all javascript background functions and event listeners
 *
 *	function get(elementID) : element;
+*	function write(string) : boolean;
 *	function alphanumeric(str) : boolean;
 *	function allLetter(str) : boolean;
 *	function destroySession() : AJAX;
 *	function cookiesAccepted(val) : AJAX;
-*	function addCategory(catname, parid) : AJAX;
-*	function addTag(tagname) : AJAX;
-*	function addItem(itemname, evc, desc, elimage, elprew, catid) : AJAX;	
-*	function listItems(catname) : json_encoded;
-*	function viewImage(element);
+* 
+*	function login()
+*	function logout()
+*
+*	function component_category_add(element) : boolean;
+*	function component_tag_add(element) : boolean;
+*	function component_item_add(element) : boolean;
+*	function component_item_list(element) : boolean;
 *
 *	+ document onload events
 *	login
@@ -23,7 +27,7 @@
 
 /*
 *	To do list:
-*
+*				- dokumentace !!!!!! login, logout +
 */
 
 
@@ -35,6 +39,13 @@
 */
 function get(elementID) {
 	return document.getElementById(elementID);
+}
+
+/*
+*	write(string) to the document
+*/
+function write(string) {
+	return document.write(string);
 }
 
 /*
@@ -81,11 +92,11 @@ function destroySession() {
 		url: 'session_AJAX.php',
 		data: {myData:postData},
 		success: function(out) {
-			console.log(out);
+			debug(out);
 			return true;
 		},
 		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
+			debug(xhr.status);
 			return false;
 		},
 	});
@@ -105,131 +116,10 @@ function cookiesAccepted(val) {
 		url: 'session_AJAX.php',
 		data: {myData:postData},
 		success: function(out) {
-			console.log(out);
+			debug(out);
 		},
 		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
-		},
-	});
-}
-
-/*
-*
-*/
-function addCategory(catname, parid) {
-	if(catname == '') {
-		$('#cat-state').html('Vyplňte prosím všechna pole');
-		return;
-	}
-
-	postData = [{'catname' : catname, 'parid' : parid}];
-
-	postData = JSON.stringify(postData);
-
-	$.ajax({
-		method: 'POST',
-		datatype: 'json',
-		url: 'category_AJAX.php',
-		data: {myData:postData},
-		success: function(out) {
-			console.log('addCategory() ajax request sent successfuly');
-			console.log(out);
-			$('#cat-state').html('Kategorie '+catname+' byla úspěšně vytvořena <br>'+out);	
-		},
-		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
-		},
-	});
-}
-
-/*
-*
-*/
-function addTag(tagname) {
-	if(tagname == '') {
-		$('#tag-state').html('Vyplňte prosím všechna pole');
-		return;		
-	}
-
-	postData = [{'tagname' : tagname}];
-
-	postData = JSON.stringify(postData);
-
-	$.ajax({
-		method: 'POST',
-		datatype: 'json',
-		url: 'tag_AJAX.php',
-		data: {myData:postData},
-		success: function(out) {
-			console.log('addTag() ajax request sent successfuly');
-			console.log(out);
-			$('#tag-state').html('Tag '+tagname+' byl úspěšně vytvořen <br>'+out);	
-		},
-		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
-		},
-	});
-}
-
-/*
-*
-*/
-function addItem(itemname, evc, desc, elimage, elprew, catid) {
-	console.log(desc);
-
-	if(itemname == '' || evc == '') {
-		$('#item-state').html('Vyplňte prosím všechna pole');
-		return;		
-	} else {
-		$('#item-state').html('');
-	}
-
-	if(!elimage[0].files[0]) {
-		$('#item-state').html('Vložte prosím obrázek produktu');
-		return;
-	}
-
-	if(!elprew[0].files[0]) {
-		$('#item-state').html('Vložte prosím náhled produktu');
-		return;
-	}
-
-	var formdata = new FormData();
-	formdata.append('image', elimage[0].files[0]);
-	formdata.append('preview', elprew[0].files[0]);
-	formdata.append('itemname', itemname);
-	formdata.append('evc', evc);
-	formdata.append('desc', desc);
-	formdata.append('catid', catid);
-
-	/*
-	postData = {
-		'itemname' : itemname, 
-		'evc' : evc, 
-		'desc' : desc, 
-		'image' : elimage[0].files[0], 
-		'prewiev' : elprew[0].files[0],
-		'catid' : catid
-	};
-
-	postData = JSON.stringify(postData);
-	*/
-
-	$.ajax({
-		method: 'POST',
-		url: 'item_add_AJAX.php',
-		data: formdata,
-		dataType: 'text',  
-		cache: false,
-		contentType: false,
-		processData: false,  
-		success: function(out) {
-			console.log('addItem() ajax request sent successfuly');
-			console.log(out);
-			$('#item-state').html('Item '+itemname+' byl úspěšně vytvořen <br>'+out);	
-		},
-		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
+			debug(xhr.status);
 		},
 	});
 }
@@ -251,11 +141,12 @@ function login(username, password) {
 		url: 'login_AJAX.php',
 		data: {myData:postData},
 		success: function(html) {
-			console.log('AJAX Login sent successful!');
-			console.log(html);
-			if (html.includes('logged_in')) {
+			html = String(html);
+			debug('AJAX Login sent successful!');
+			debug(html);
+			if (html.indexOf('logged_in') !== -1) {
 				$('#login-form-content').empty().html('<div class="alert alert-success"><strong>Úspěšné přihlášení</strong><br>Budete přesměrováni do uživatelského rozhraní</div>');
-				console.log('Byl jste přihlášen');
+				debug('Byl jste přihlášen');
 				window.location = 'main.php';
 			} else {
 				destroySession();
@@ -263,7 +154,7 @@ function login(username, password) {
 			}
 		},
 		error: function(xht, ajaxOptions, thrownError) {
-			console.log(xhr.status);
+			debug(xhr.status);
 		}
 	});
 };
@@ -271,86 +162,70 @@ function login(username, password) {
 /*
 *
 */
-function listItems(catname) {
-	var postData = {
-		'catname' : catname
-	};
-
-	postData = JSON.stringify(postData);
+function logout() {
 
 	$.ajax({
-		method: 'POST',
-		datatype: 'json',
-		url: 'item_list_AJAX.php',
-		data: {myData:postData},
-		success: function(out) {
-			console.log('listItems() ajax request sent successfuly');
-
-			$('#items-panel-catname').html(catname);
-
-			try {
-				var items = JSON.parse(out);
-			} catch(e) {
-				console.log(out);
-			}
-
-			console.log(items);
-
-			if (items == undefined) {
-				$('#items-panel-content').html('');
-				return;
-			}
-
-			var prepared = '';
-
-			for(var i = 0; i < items.length; i ++) {
-				if(i % 3 == 0) {
-					prepared += '<div class="row">';
-				}
-
-				prepared += '<div class="col-sm-4 item panel">';
-				prepared += '<div class="panel-heading">';
-				prepared += '<h4>'; 
-				prepared += items[i][1];
-				prepared += '<br><small>evč:'; 
-				prepared += items[i][3];
-				prepared += '</small></h4>!';
-				prepared += '</div>';
-				prepared += '<div class="panel-content">';
-				prepared += '<p class="description"> ';
-				prepared += items[i][2];
-				prepared += '</p>';
-				prepared += '<img src="uploads/items/';
-				prepared += items[i][1]+'-'+items[i][3]+'/';
-				prepared += 'image.jpg" class="preview" onclick="viewImage($(this));">';
-				prepared += '</div>';
-				prepared += '<div class="panel-footer">';
-				prepared += '<button class="btn btn-default btn-sm"><b>+</b>&nbsp; Přidat do košíku</button>';
-				prepared += '</div>';
-
-				if(i % 3 == 0) {
-					prepared += '</div>';
-				}
-			}
-
-			$('#items-panel-content').html(prepared);
+		type: 'POST',
+		url: 'logout_AJAX.php',
+		success: function() {
+			window.location = 'index.php';
 		},
-		error: function(xhr, ajaxOptions, thrownError){
-			console.log(xhr.status);
-		},
+		error: function(xht, ajaxOptions, thrownError) {
+			debug(xhr.status);
+		}
 	});
+};
+
+/*
+*
+*/
+function component_item_list(element) {
+	var component_item_list = $.get('component_item_list.php', function(data_item_list) {
+		$(element).append(data_item_list);
+		return true;
+	});
+
+	return false;
 }
 
 /*
 *
 */
-function viewImage(element) {
-	$('body').append('<div id="full-image" class="fullscreen-fixed" onclick="$(this).fadeOut(function() {$(this).remove()})" hidden><img class="fullscreen-img" src="'+($(element).attr('src')).replace('preview', 'image')+'"></div>');
-	$('#full-image').fadeIn();
+function component_item_add(element) {
+	var component_item_add = $.get('component_item_add.php', function(data_item_add) {
+		$(element).append(data_item_add);
+		return true;
+	});
+
+	return false;
+}
+
+/*
+*
+*/
+function component_category_add(element) {
+	var component_category_add = $.get('component_category_add.php', function(data_category_add) {
+		$(element).append(data_category_add);
+		return true;
+	});
+
+	return false;
+}
+
+/*
+*
+*/
+function component_tag_add(element) {
+	var component_tag_add = $.get('component_tag_add.php', function(data_tag_add) {
+		$(element).append(data_tag_add);
+		return true;
+	});
+
+	return false;
 }
 
 
-// --------------- On Load -------------------
+// ---------------- On Load -------------------
 
 $('#submit-register').on('click', function() {
 	var username = $('#register-username').val().toLowerCase();
@@ -416,7 +291,7 @@ $('#submit-register').on('click', function() {
 
 		postData = JSON.stringify(postData);
 
-		console.log(postData);
+		debug(postData);
 
 		$.ajax({
 			type: 'POST',
@@ -424,7 +299,7 @@ $('#submit-register').on('click', function() {
 			url: 'register_AJAX.php',
 			data: {myData:postData},
 			success: function(html) {
-				console.log(html);
+				debug(html);
 				if (html[0] == '1') {
 					alert('Uživatelské jméno již existuje!');
 				}
@@ -432,16 +307,16 @@ $('#submit-register').on('click', function() {
 					alert('Tento email je již registrován!')
 				} 
 				else if (html[0] == '0') {
-					console.log('registrace proběhla úspěšně');
+					debug('registrace proběhla úspěšně');
 					$('#register-form-content').empty().html('<div class="alert alert-success"><strong>Úspěšná registrace</strong><br>Nyní se můžete přihlásit v pravém sloupci</div>');
 				}
 			},
 			error: function(xhr, ajaxOptions, thrownError){
-				console.log(xhr.status);
+				debug(xhr.status);
 			},
 		});
 	} else {
-		console.log('password != password2.');
+		debug('password != password2.');
 	}
 });
 
