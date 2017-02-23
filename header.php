@@ -39,7 +39,7 @@ require "cookies.php";
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="font/dosis/stylesheet.css">
 
-	<!-- Fonts -- >
+	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
@@ -49,6 +49,7 @@ require "cookies.php";
 	<!-- Main stalysheet -->
 	<link rel="stylesheet" type="text/css" href="style.css">
 
+	<script src="js/debug.js"></script>
 	<!-- core scripts -->
 	<script src="js/jquery.js"></script>
 	<!--<script src="js/jquery.min.js"></script>-->
